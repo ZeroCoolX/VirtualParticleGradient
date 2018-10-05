@@ -44,19 +44,34 @@ bool Screen::init(){
     // Initialize a block of memory with the same value
     memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
-    for(int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; ++i){
-            // RRGGBBAA
-        m_buffer[i] = 0xFF00FFFF;
-    }
+    return true;
+}
 
+void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue){
+    Uint32 color = 0;
+
+    color += red;
+    color <<= 8;
+
+    color += green;
+    color <<= 8;
+
+    color += blue;
+    color <<=8;
+
+    color += 0xFF;
+    m_buffer[(y * SCREEN_WIDTH) + x] = color;
+}
+
+
+void Screen::update(){
     // draw to the screen
     SDL_UpdateTexture(m_texture, NULL, m_buffer, /*number of bytes per row of pixels*/ SCREEN_WIDTH*sizeof(Uint32));
     SDL_RenderClear(m_renderer);
     SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
     SDL_RenderPresent(m_renderer);
-
-    return true;
 }
+
 bool Screen::processEvents(){
     SDL_Event event;
     while(SDL_PollEvent(&event)){
