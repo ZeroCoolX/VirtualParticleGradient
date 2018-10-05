@@ -1,0 +1,76 @@
+#include "Screen.h"
+#include <mem.h>
+
+Screen::Screen() :
+    m_window(NULL), m_renderer(NULL), m_texture(NULL), m_buffer(NULL){
+
+}
+
+bool Screen::init(){
+        if(SDL_Init(SDL_INIT_VIDEO)  < 0){
+        return false;
+    }
+
+    m_window = SDL_CreateWindow(
+                                          "Particle Emitter",
+                                          SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                                          SCREEN_WIDTH, SCREEN_HEIGHT,
+                                          SDL_WINDOW_SHOWN);
+
+    if(m_window == NULL){
+        SDL_Quit();
+        return false;
+    }
+
+    // SDL refreshes from top left hand corner to bottom right at max FPS
+    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_PRESENTVSYNC);
+    if(m_renderer == NULL){
+        SDL_DestroyWindow(m_window);
+        SDL_Quit();
+        return false;
+    }
+                                                            // uses 1 byte / pixel      write pixels directly
+    m_texture = SDL_CreateTexture(m_renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, SCREEN_WIDTH, SCREEN_HEIGHT);
+    if(m_texture == NULL){
+        SDL_DestroyRenderer(m_renderer);
+        SDL_DestroyWindow(m_window);
+        SDL_Quit();
+        return false;
+    }
+
+    // must allocate enough memory for each pixel on the screen
+    m_buffer = new  Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
+
+    // Initialize a block of memory with the same value
+    memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+
+    for(int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; ++i){
+            // RRGGBBAA
+        m_buffer[i] = 0xFF00FFFF;
+    }
+
+    // draw to the screen
+    SDL_UpdateTexture(m_texture, NULL, m_buffer, /*number of bytes per row of pixels*/ SCREEN_WIDTH*sizeof(Uint32));
+    SDL_RenderClear(m_renderer);
+    SDL_RenderCopy(m_renderer, m_texture, NULL, NULL);
+    SDL_RenderPresent(m_renderer);
+
+    return true;
+}
+bool Screen::processEvents(){
+    SDL_Event event;
+    while(SDL_PollEvent(&event)){
+        if(event.type == SDL_QUIT){ // raised by user clicking the X in the window corner
+            return false;
+        }
+    }
+    return true;
+}
+void Screen::close(){
+    SDL_DestroyTexture(m_texture);
+    SDL_DestroyRenderer(m_renderer);
+    SDL_DestroyWindow(m_window);
+    SDL_Quit();
+
+    delete [] m_buffer;
+}

@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1538611503 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\main.cpp
+1538704301 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\main.cpp
 	<iostream>
 	<SDL2/SDL.h>
+	<Screen.h>
 
 1519925811 c:\users\mitinz\documents\development\sdl2\sdl2-devel-2.0.8-mingw.tar\sdl2-devel-2.0.8-mingw\sdl2-2.0.8\i686-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -336,4 +337,11 @@
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
+
+1538704295 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\src\screen.cpp
+	"Screen.h"
+	<mem.h>
+
+1538703718 c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\include\screen.h
+	<SDL2/SDL.h>
 
