@@ -2,20 +2,26 @@
 #include<SDL2/SDL.h>
 #include<Screen.h>
 #include<math.h>
-
+#include<stdlib.h>
+#include<time.h>
+#include<Swarm.h>
 using namespace std;
 
 int main(int argc, char* argv[]){
+    // seed the rand()
+    srand(time(NULL));
+
     Screen screen;
     if(!screen.init()){
         cout << "Error initializing SDL2..." << endl;
     }
 
+    Swarm swarm;
+
 
     while(screen.processEvents()){
-        // algorithm for wax and waning colours smoothly without crazy hues
-        // Returns the number of milliseconds since start
         int elapsed = SDL_GetTicks();
+
         float r_smoother = 0.0001F;
         float g_smoother = 0.0002F;
         float b_smoother = 0.0003F;
@@ -25,11 +31,16 @@ int main(int argc, char* argv[]){
         unsigned char green = (unsigned char)((1 + sin(elapsed * g_smoother)) * halfMaxColourValue);
         unsigned char blue = (unsigned char)((1 + sin(elapsed * b_smoother)) * halfMaxColourValue);
 
-        for(int y = 0; y < screen.SCREEN_HEIGHT; ++y){
-            for(int x = 0; x < screen.SCREEN_WIDTH; ++x){
-                screen.setPixel(x, y, red, green, blue);
-            }
+        const Particle * const pParticles = swarm.getParticles();
+        for(int i = 0; i < Swarm::NPARTICLES; ++i){
+            Particle particle = pParticles[i];
+
+            int x = (particle.m_x  + 1) * Screen::SCREEN_WIDTH / 2;
+            int y = (particle.m_y  + 1) * Screen::SCREEN_HEIGHT / 2;
+
+            screen.setPixel(x, y, red, green, blue);
         }
+
         screen.update();
     }
 

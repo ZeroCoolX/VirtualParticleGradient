@@ -1,9 +1,12 @@
 # depslib dependency file v1.0
-1538706371 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\main.cpp
+1538708513 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<Screen.h>
 	<math.h>
+	<stdlib.h>
+	<time.h>
+	<Swarm.h>
 
 1519925811 c:\users\mitinz\documents\development\sdl2\sdl2-devel-2.0.8-mingw.tar\sdl2-devel-2.0.8-mingw\sdl2-2.0.8\i686-w64-mingw32\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -339,10 +342,22 @@
 	"begin_code.h"
 	"close_code.h"
 
-1538705437 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\src\screen.cpp
+1538708394 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\src\screen.cpp
 	"Screen.h"
 	<mem.h>
 
 1538705429 c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\include\screen.h
 	<SDL2/SDL.h>
+
+1538707317 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\src\particle.cpp
+	"Particle.h"
+	<stdlib.h>
+
+1538707400 c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\include\particle.h
+
+1538707904 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\src\swarm.cpp
+	"Swarm.h"
+
+1538707893 c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\include\swarm.h
+	"Particle.h"
 

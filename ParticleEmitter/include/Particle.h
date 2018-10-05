@@ -2,15 +2,14 @@
 #define PARTICLE_H
 
 
-class Particle
-{
-    public:
-        Particle();
-        virtual ~Particle();
+struct Particle{
+    double m_x;
+    double m_y;
 
-    protected:
+public:
+    Particle();
+    virtual ~Particle();
 
-    private:
 };
 
 #endif // PARTICLE_H

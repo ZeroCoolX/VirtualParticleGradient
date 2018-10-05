@@ -2,10 +2,10 @@
 
 Swarm::Swarm()
 {
-    //ctor
+    m_pParticles = new Particle[NPARTICLES];
 }
 
 Swarm::~Swarm()
 {
-    //dtor
+    delete [] m_pParticles;
 }
