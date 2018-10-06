@@ -22,7 +22,6 @@ int main(int argc, char* argv[]){
     while(screen.processEvents()){
         int elapsed = SDL_GetTicks();
 
-        screen.clearScreen();
         swarm.update(elapsed);
 
         float r_smoother = 0.0001F;
@@ -43,6 +42,10 @@ int main(int argc, char* argv[]){
 
             screen.setPixel(x, y, red, green, blue);
         }
+
+        screen.boxBlur();
+
+        // Draw the screen
         screen.update();
     }
 

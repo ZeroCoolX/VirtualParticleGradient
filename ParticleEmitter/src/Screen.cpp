@@ -2,7 +2,7 @@
 #include <mem.h>
 
 Screen::Screen() :
-    m_window(NULL), m_renderer(NULL), m_texture(NULL), m_buffer(NULL){
+    m_window(NULL), m_renderer(NULL), m_texture(NULL), m_buffer(NULL), m_blurBuffer(NULL){
 
 }
 
@@ -40,15 +40,64 @@ bool Screen::init(){
 
     // must allocate enough memory for each pixel on the screen
     m_buffer = new  Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
+    m_blurBuffer = new  Uint32[SCREEN_WIDTH * SCREEN_HEIGHT];
 
     // Initialize a block of memory with the same value
     memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+    memset(m_blurBuffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
 
     return true;
 }
 
-void Screen::clearScreen(){
-    memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+// Copy from one buffer and write to the other
+void Screen::boxBlur(){
+    // Swap buffers so pixel info is in blurBuffer and we draw buffer;
+    Uint32 *tempBuffer = m_buffer;
+    m_buffer = m_blurBuffer;
+    m_blurBuffer = tempBuffer;
+
+    for(int y = 0; y < SCREEN_HEIGHT; ++y){
+        for(int x = 0; x < SCREEN_WIDTH; ++x){
+            /*
+            "Box Blur Algorithm":
+            Add the colors of all 9 pixels, then divide by 9 to get the average and set "1" to that value
+
+            0 0 0
+            0 1 0
+            0 0 0
+            */
+
+            int redTotal = 0;
+            int greenTotal = 0;
+            int blueTotal = 0;
+
+            int boxBlurDivider = 9;
+
+            for(int row = -1; row <= 1; ++row){
+                for(int col = -1; col <= 1; ++col){
+                    int curX = x + col;
+                    int curY = y + row;
+
+                    if(curX >= 0 && curX < SCREEN_WIDTH && curY >= 0 && curY < SCREEN_HEIGHT){
+                        Uint32 color = m_blurBuffer[curY * SCREEN_WIDTH + curX];
+                        Uint8 red = color >> 24;
+                        Uint8 green = color >> 16;
+                        Uint8 blue = color >> 8;
+
+                        redTotal += red;
+                        greenTotal += green;
+                        blueTotal += blue;
+                    }
+                }
+            }
+
+            Uint8 red = redTotal / boxBlurDivider;
+            Uint8 green = greenTotal / boxBlurDivider;
+            Uint8 blue = blueTotal / boxBlurDivider;
+
+            setPixel(x, y, red, green, blue);
+        }
+    }
 }
 
 void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue){
@@ -96,4 +145,5 @@ void Screen::close(){
     SDL_Quit();
 
     delete [] m_buffer;
+    delete [] m_blurBuffer;
 }
