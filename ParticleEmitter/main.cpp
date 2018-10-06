@@ -23,7 +23,7 @@ int main(int argc, char* argv[]){
         int elapsed = SDL_GetTicks();
 
         screen.clearScreen();
-        swarm.update();
+        swarm.update(elapsed);
 
         float r_smoother = 0.0001F;
         float g_smoother = 0.0002F;
@@ -39,7 +39,7 @@ int main(int argc, char* argv[]){
             Particle particle = pParticles[i];
 
             int x = (particle.m_x  + 1) * Screen::SCREEN_WIDTH / 2;
-            int y = (particle.m_y  + 1) * Screen::SCREEN_HEIGHT / 2;
+            int y = (particle.m_y * Screen::SCREEN_WIDTH / 2) + Screen::SCREEN_HEIGHT / 2;
 
             screen.setPixel(x, y, red, green, blue);
         }
