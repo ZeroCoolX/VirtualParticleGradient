@@ -22,6 +22,9 @@ int main(int argc, char* argv[]){
     while(screen.processEvents()){
         int elapsed = SDL_GetTicks();
 
+        screen.clearScreen();
+        swarm.update();
+
         float r_smoother = 0.0001F;
         float g_smoother = 0.0002F;
         float b_smoother = 0.0003F;
@@ -40,7 +43,6 @@ int main(int argc, char* argv[]){
 
             screen.setPixel(x, y, red, green, blue);
         }
-
         screen.update();
     }
 

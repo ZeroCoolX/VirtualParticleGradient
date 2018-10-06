@@ -21,6 +21,7 @@ public:
     bool processEvents();
     void close();
     void update();
+    void clearScreen();
     void setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue);
 };
 

@@ -4,7 +4,7 @@
 
 class Swarm{
 public:
-    const static int NPARTICLES = 5000;
+    const static int NPARTICLES = 1000;
 
 private:
     Particle * m_pParticles;
@@ -12,6 +12,7 @@ private:
 public:
     Swarm();
     virtual ~Swarm();
+    void update();
     // neither the particle nor the collection can be changed
     const Particle * const getParticles(){
         return m_pParticles;
