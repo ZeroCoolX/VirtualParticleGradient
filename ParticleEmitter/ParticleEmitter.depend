@@ -349,12 +349,12 @@
 1538801365 c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\include\screen.h
 	<SDL2/SDL.h>
 
-1538797474 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\src\particle.cpp
+1538803409 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\src\particle.cpp
 	"Particle.h"
 	<stdlib.h>
 	<math.h>
 
-1538797362 c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\include\particle.h
+1538803362 c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\include\particle.h
 
 1538797370 source:c:\users\mitinz\documents\development\udemy_cplusplus_particleexplosion\particleemitter\src\swarm.cpp
 	"Swarm.h"
